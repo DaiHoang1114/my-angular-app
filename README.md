@@ -76,5 +76,4 @@ src/
  │   └─ app.component.ts
  ├─ assets/
  └─ environments/
-
 ```
