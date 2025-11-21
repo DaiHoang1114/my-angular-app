@@ -1,5 +1,6 @@
-// Import variables
+// Import variables and sass color module
 @use '../../../../styles/variables' as *;
+@use 'sass:color';
 
 .login-container {
   display: flex;
@@ -11,9 +12,9 @@
 }
 
 .login-card {
-  background: white;
+  background: $card-background;
   border-radius: $border-radius-md;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow-md;
   padding: 48px 40px;
   width: 100%;
   max-width: 440px;
@@ -29,6 +30,10 @@
   svg {
     width: 32px;
     height: 32px;
+
+    path {
+      fill: $primary-color;
+    }
   }
 
   span {
@@ -53,14 +58,14 @@
     padding: 10px 16px;
     border: 1px solid $border-color;
     border-radius: $border-radius-sm;
-    background: white;
+    background: $card-background;
     font-size: $font-size-sm;
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover {
-      border-color: #bbb;
-      background: #fafafa;
+      border-color: color.adjust($border-color, $lightness: -10%);
+      background: $background-color;
     }
   }
 
@@ -103,8 +108,6 @@
 }
 
 form {
-  // Remove .form-group styles - now using global styles
-
   .form-options {
     display: flex;
     justify-content: space-between;
@@ -121,6 +124,7 @@ form {
       input[type="checkbox"] {
         width: auto;
         cursor: pointer;
+        accent-color: $primary-color;
       }
 
       span {
@@ -141,7 +145,7 @@ form {
   .btn-signin {
     width: 100%;
     padding: 12px;
-    background: #4285F4;
+    background: $primary-color;
     color: white;
     border: none;
     border-radius: $border-radius-sm;
@@ -151,11 +155,11 @@ form {
     transition: background 0.2s;
 
     &:hover {
-      background: #357ae8;
+      background: color.adjust($primary-color, $lightness: -10%);
     }
 
     &:disabled {
-      background: #ccc;
+      background: $text-light;
       cursor: not-allowed;
     }
   }

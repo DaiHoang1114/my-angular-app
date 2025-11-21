@@ -1,0 +1,104 @@
+<aside class="sidebar" [class.collapsed]="isCollapsed" [class.mobile-open]="isMobileMenuOpen">
+  <!-- Profile Header -->
+  <div class="sidebar-profile">
+    <div class="profile-backdrop">
+      <svg class="mountain-pattern" viewBox="0 0 400 200" preserveAspectRatio="none">
+        <path d="M0,100 L50,80 L100,90 L150,60 L200,80 L250,50 L300,70 L350,60 L400,80 L400,200 L0,200 Z"
+              fill="rgba(255,255,255,0.1)"/>
+        <path d="M0,120 L60,100 L120,110 L180,80 L240,100 L300,70 L360,90 L400,85 L400,200 L0,200 Z"
+              fill="rgba(255,255,255,0.15)"/>
+        <path d="M0,140 L80,120 L160,130 L240,100 L320,120 L400,110 L400,200 L0,200 Z"
+              fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
+
+    <div class="profile-content">
+      <div class="profile-avatar">
+        <img [src]="user.avatar" [alt]="user.name">
+      </div>
+      @if (!isCollapsed) {
+        <div class="profile-info">
+          <h3 class="profile-name">{{ user.name }}</h3>
+          <button class="profile-dropdown">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+    @for (section of menuSections; track section.title) {
+      <div class="nav-section">
+        @if (!isCollapsed) {
+          <div class="nav-section-title">{{ section.title }}</div>
+        }
+
+        @for (item of section.items; track item.label) {
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            class="nav-item"
+            [title]="isCollapsed ? item.label : ''"
+          >
+            <span class="nav-icon">
+              @if (item.icon === 'dashboard') {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              }
+              <!-- Dashboard Icon -->
+
+              <!-- Classic Icon -->
+              @if (item.icon === 'classic') {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+                  <path d="M8 6h8M8 10h8M8 14h5"/>
+                </svg>
+              }
+              <!-- Analytics Icon -->
+              @if (item.icon === 'analytics') {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="9" r="2"/>
+                  <circle cx="13" cy="15" r="2"/>
+                  <path d="M10.5 10.5l2 4"/>
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+              }
+
+              <!-- Campaign Icon -->
+              @if (item.icon === 'campaign') {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              }
+
+              @if (item.icon === 'modern') {
+              <!-- Modern Icon -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"/>
+                  <rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/>
+                  <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+              }
+            </span>
+            @if (!isCollapsed) {
+              <span class="nav-label">{{ item.label }}</span>
+            }
+          </a>
+        }
+
+      </div>
+    }
+  </nav>
+</aside>
+
+<!-- Mobile Overlay -->
+@if (isMobileMenuOpen) {
+  <div class="sidebar-overlay" (click)="toggleMobileMenu()"></div>
+}

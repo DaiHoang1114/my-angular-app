@@ -64,7 +64,7 @@ src/
  ├─ app/
  │   ├─ core/            # Singleton services, interceptors, guards
  │   ├─ shared/          # Shared components, pipes, directives
- │   ├─ features/        # Feature modules (domain-based)
+ │   ├─ pages/        # Feature modules (domain-based)
  │   │    ├─ auth/
  │   │    │   ├─ components/
  │   │    │   ├─ services/

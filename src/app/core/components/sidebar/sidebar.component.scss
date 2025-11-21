@@ -1,0 +1,258 @@
+@use '../../../../styles/variables' as *;
+@use 'sass:color';
+
+.sidebar {
+  width: 260px;
+  background: $card-background;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  &.collapsed {
+    width: 72px;
+
+    .profile-info,
+    .nav-label,
+    .nav-section-title {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .profile-content {
+      justify-content: center;
+    }
+
+    .profile-avatar {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    left: -260px;
+    z-index: 1000;
+
+    &.mobile-open {
+      left: 0;
+    }
+  }
+}
+
+.sidebar-profile {
+  position: relative;
+  background: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
+  padding: $spacing-xl $spacing-lg;
+  overflow: hidden;
+
+  .profile-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.6;
+
+    .mountain-pattern {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .profile-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    z-index: 1;
+  }
+
+  .profile-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: $card-background;
+    transition: all 0.3s;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .profile-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-sm;
+    transition: all 0.3s;
+  }
+
+  .profile-name {
+    color: white;
+    font-size: $font-size-md;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-dropdown {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: $spacing-md 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: $border-radius-sm;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.nav-section {
+  margin-bottom: $spacing-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.nav-section-title {
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: $text-secondary;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: 12px $spacing-lg;
+  color: $text-secondary;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+  font-size: $font-size-sm;
+  font-weight: 500;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: $primary-color;
+    border-radius: 0 $border-radius-sm $border-radius-sm 0;
+    transition: height 0.2s;
+  }
+
+  &:hover {
+    background: $primary-color;
+    color: white;
+
+    &::before {
+      height: 24px;
+    }
+  }
+
+  &.active {
+    background: linear-gradient(90deg, color.adjust($primary-color, $lightness: 42%, $saturation: -30%) 0%, transparent 100%);
+    color: $primary-color;
+
+    &::before {
+      height: 100%;
+    }
+
+    .nav-icon {
+      color: $primary-color;
+    }
+  }
+}
+
+.nav-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition: color 0.2s;
+}
+
+.nav-label {
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.sidebar-overlay {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: fadeIn 0.3s;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

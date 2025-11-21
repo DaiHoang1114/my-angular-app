@@ -1,0 +1,26 @@
+@use '../../../styles/variables' as *;
+@use 'sass:color';
+
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  padding: $spacing-xl;
+  overflow-y: auto;
+  background: $background-color;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (max-width: 768px) {
+    padding: $spacing-lg;
+  }
+}
