@@ -1,3 +1,167 @@
-<p>
-  dashboard works!
-</p>
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="breadcrumb">Home > Dashboard</p>
+      </div>
+      <div class="header-stats">
+        <div class="mini-stat">
+          <span class="label">This Month</span>
+          <span class="value">$58,356</span>
+          <div class="sparkline blue"></div>
+        </div>
+        <div class="mini-stat">
+          <span class="label">Last Month</span>
+          <span class="value">$48,356</span>
+          <div class="sparkline cyan"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div *ngFor="let stat of stats" class="stat-card" [class]="'stat-' + stat.color">
+      <div class="stat-content">
+        <div class="stat-header">
+          <span class="stat-title">{{ stat.title }}</span>
+          <div class="stat-icon-wrapper" [class]="'bg-' + stat.color">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path *ngIf="stat.icon === 'trending_up'" d="M22 7L13.5 15.5L8.5 10.5L2 17"/>
+              <polyline *ngIf="stat.icon === 'trending_up'" points="16 7 22 7 22 13"/>
+
+              <path *ngIf="stat.icon === 'people'" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle *ngIf="stat.icon === 'people'" cx="9" cy="7" r="4"/>
+              <path *ngIf="stat.icon === 'people'" d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path *ngIf="stat.icon === 'people'" d="M16 3.13a4 4 0 0 1 0 7.75"/>
+
+              <rect *ngIf="stat.icon === 'work'" x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path *ngIf="stat.icon === 'work'" d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+
+              <path *ngIf="stat.icon === 'check_circle'" d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline *ngIf="stat.icon === 'check_circle'" points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-body">
+          <h2 class="stat-value">{{ stat.value }}</h2>
+          <div class="stat-footer">
+            <span class="stat-change" [class]="getChangeClass(stat.change)">
+              {{ getChangeIcon(stat.change) }} {{ stat.change | number: '1.1-1' }}%
+            </span>
+            <span class="stat-label">vs last month</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid">
+    <!-- Sales Overview -->
+    <div class="card large">
+      <div class="card-header">
+        <h3>Product Sales</h3>
+        <div class="card-actions">
+          <button class="btn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="5" r="2"/>
+              <circle cx="12" cy="12" r="2"/>
+              <circle cx="12" cy="19" r="2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="sales-list">
+          <div *ngFor="let sale of salesData" class="sales-item">
+            <div class="sales-info">
+              <span class="sales-product">{{ sale.product }}</span>
+              <div class="sales-details">
+                <span class="sales-amount">${{ sale.amount | number }}</span>
+                <span class="sales-change" [class]="getChangeClass(sale.change)">
+                  {{ getChangeIcon(sale.change) }} {{ sale.change }}%
+                </span>
+              </div>
+            </div>
+            <div class="sales-bar">
+              <div class="sales-progress" [style.width.%]="(sale.amount / 25000) * 100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Recent Activity</h3>
+        <button class="btn-link">View All</button>
+      </div>
+      <div class="card-body">
+        <div class="activity-list">
+          <div *ngFor="let activity of recentActivities" class="activity-item">
+            <div class="activity-avatar">
+              <img [src]="activity.avatar" [alt]="activity.user">
+            </div>
+            <div class="activity-content">
+              <p class="activity-user">{{ activity.user }}</p>
+              <p class="activity-action">{{ activity.action }}</p>
+              <span class="activity-time">{{ activity.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Quick Stats</h3>
+      </div>
+      <div class="card-body">
+        <div class="quick-stats">
+          <div class="quick-stat-item">
+            <div class="quick-stat-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="quick-stat-info">
+              <span class="quick-stat-label">Avg. Response Time</span>
+              <span class="quick-stat-value">2.5 hrs</span>
+            </div>
+          </div>
+          <div class="quick-stat-item">
+            <div class="quick-stat-icon cyan">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20V10"/>
+                <path d="M18 20V4"/>
+                <path d="M6 20v-4"/>
+              </svg>
+            </div>
+            <div class="quick-stat-info">
+              <span class="quick-stat-label">Tasks Completed</span>
+              <span class="quick-stat-value">127/150</span>
+            </div>
+          </div>
+          <div class="quick-stat-item">
+            <div class="quick-stat-icon purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                <line x1="7" y1="7" x2="7.01" y2="7"/>
+              </svg>
+            </div>
+            <div class="quick-stat-info">
+              <span class="quick-stat-label">Open Tickets</span>
+              <span class="quick-stat-value">23</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

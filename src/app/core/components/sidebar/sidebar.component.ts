@@ -28,8 +28,8 @@ export class SidebarComponent {
     {
       title: 'HOME',
       items: [
-        { label: 'General', icon: 'dashboard', route: '/home' },
-        { label: 'Classic', icon: 'classic', route: '/dashboard' },
+        { label: 'Home', icon: 'dashboard', route: '/home' },
+        { label: 'Dashboard', icon: 'classic', route: '/dashboard' },
         { label: 'Analytical', icon: 'analytics', route: '/analytics' },
         { label: 'Campaign', icon: 'campaign', route: '/campaign' },
         { label: 'Modern', icon: 'modern', route: '/modern' }
