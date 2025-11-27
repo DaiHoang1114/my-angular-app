@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-// import { UserProfileComponent } from './user-profile.component';
-// import { AuthService } from '../../core/services/auth.service';
+import { UserProfileComponent } from './user-profile.component';
+import { AuthService } from '../../core/services/auth.service';
 import { of } from 'rxjs';
-import { UserProfileComponent } from '../../../pages/user-profile/user-profile.component';
-import { AuthService } from '../../services/auth.service';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
